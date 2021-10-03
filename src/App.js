@@ -11,6 +11,13 @@ import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
 import PrivateRoute from "./guard/auth";
 import AdminRoute from "./guard/admin";
+import TransactionPage from "./pages/TransactionPage";
+import EmployeeIndex from "./pages/employee/EmployeeIndex";
+import CarIndex from "./pages/car/CarIndex";
+import DriverIndex from "./pages/deriver/DriverIndex";
+import RouteIndex from "./pages/routePath/RouteIndex";
+import PointIndex from "./pages/pickPoint/PointIndex";
+import QRGenaretor from "./pages/QRGenaretor";
 const { store } = configureStore();
 function App() {
   return (
@@ -34,9 +41,30 @@ function App() {
                 <Route exact path="/register">
                   <RegisterPage />
                 </Route>
+                <Route exact path="/employee">
+                  <EmployeeIndex />
+                </Route>
+                <Route exact path="/car">
+                  <CarIndex />
+                </Route>
+                <Route exact path="/driver">
+                  <DriverIndex />
+                </Route>
+                <Route exact path="/routepath">
+                  <RouteIndex />
+                </Route>
+                <Route exact path="/pickup">
+                  <PointIndex />
+                </Route>
                 <Route exact path="/scan">
                   <QRScaner />
                 </Route>
+                <AdminRoute exact path="/generator">
+                  <QRGenaretor />
+                </AdminRoute>
+                <AdminRoute exact path="/transaction">
+                  <TransactionPage />
+                </AdminRoute>
               </Switch>
             </Router>
           </ToastProvider>

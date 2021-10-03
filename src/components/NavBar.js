@@ -40,24 +40,64 @@ const NavBar = () => {
               <NavLink to="/scan" className="nav-link" activeClassName="active">
                 QR
               </NavLink>
-              <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              {profileRedux && profileRedux.role === "admin" ? (
+                <NavDropdown
+                  title="User Management"
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/transaction");
+                    }}
+                  >
+                    Transaction
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/employee");
+                    }}
+                  >
+                    Employee Management
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : null}
+              {profileRedux && profileRedux.role === "admin" ? (
+                <NavDropdown title="Route" id="collasible-nav-dropdown">
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/car");
+                    }}
+                  >
+                    Car Management
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/driver");
+                    }}
+                  >
+                    Driver Management
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/routepath");
+                    }}
+                  >
+                    Route Management
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/pickup");
+                    }}
+                  >
+                    Pickup Management
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : null}
             </Nav>
             <Nav>
               {profileRedux ? (
                 <span className="navbar-text text-white">
-                  Welcome {profileRedux.name}{" "}
+                  Welcome {profileRedux.name} {profileRedux.role}
                   <button className="btn btn-danger ml-2" onClick={logout}>
                     Log out
                   </button>

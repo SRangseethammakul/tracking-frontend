@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export default function PrivateRoute({ children, ...rest }) {
   let isAuth = false;
   const token = JSON.parse(localStorage.getItem("token"));
-  const decode1 = jwt.decode(token.access_token);
+  const decode1 = token ? jwt.decode(token.access_token) : null;
   if (token && decode1.role === 'admin') {
     isAuth = true;
   }
