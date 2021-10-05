@@ -3,9 +3,9 @@ import { Row, Container, Col } from "react-bootstrap";
 import QrReader from "react-qr-reader";
 const QRScaner = () => {
   const [data, setData] = React.useState(null);
-  const handleScan = (data) => {
-    if (data) {
-      setData(data);
+  const handleScan = (dataScan) => {
+    if (dataScan) {
+      setData(dataScan);
     }
   };
   const handleError = (err) => {
