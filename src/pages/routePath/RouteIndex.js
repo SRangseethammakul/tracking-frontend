@@ -40,6 +40,53 @@ const RouteIndex = () => {
       setLoading(false);
     }
   };
+  const handleRowUpdate = (newData, oldData, resolve) => {
+    api
+      .put(`/${newData._id}`, {
+        isUsed: newData.isUsed,
+        name: newData.name,
+        status: true,
+      })
+      .then((res) => {
+        const dataUpdate = [...routePaths];
+        const index = oldData.tableData.id;
+        dataUpdate[index] = newData;
+        setRoutePath([...dataUpdate]);
+        resolve();
+      })
+      .catch((err) => {
+        setError(err.message);
+        if (err.response) {
+          console.log(err.response.data);
+          setError(err.response.data.message);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+        } else if (err.request) {
+          console.log(err.request);
+          setError(err.request);
+        } else {
+          setError(err.message);
+          console.log("Error", err.message);
+        }
+        resolve();
+      });
+  };
+
+  const handleRowAdd = (newData, resolve) => {
+    console.log(newData);
+    api
+      .post("/", newData)
+      .then((res) => {
+        let dataToAdd = [...routePaths];
+        dataToAdd.push(newData);
+        setRoutePath(dataToAdd);
+        resolve();
+      })
+      .catch((err) => {
+        setError(err.message);
+        resolve();
+      });
+  };
   React.useEffect(() => {
     cancelToken.current = axios.CancelToken.source();
     getData();
@@ -106,6 +153,16 @@ const RouteIndex = () => {
               data={routePaths}
               options={{
                 filtering: true,
+              }}
+              editable={{
+                onRowAdd: (newData) =>
+                  new Promise((resolve) => {
+                    handleRowAdd(newData, resolve);
+                  }),
+                onRowUpdate: (newData, oldData) =>
+                  new Promise((resolve) => {
+                    handleRowUpdate(newData, oldData, resolve);
+                  }),
               }}
             />
           </Col>

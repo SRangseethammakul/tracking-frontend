@@ -108,7 +108,9 @@ const TransactionPage = () => {
               columns={[
                 { title: "Name", field: "user" },
                 { title: "ป้ายทะเบียน", field: "numberPlate" },
+                { title: "driverName", field: "driverName" },
                 { title: "TimeStamp", field: "datetime" },
+                { title: "definition", field: "definition" },
                 { title: "TimeStamp", field: "user_info", hidden: true },
               ]}
               data={datas}
@@ -134,12 +136,8 @@ const TransactionPage = () => {
                             <>
                               <Container>
                                 <Row>
-                                  <Col md={6}>ที่อยู่</Col>
-                                  <Col md={6}>{item.address}</Col>
                                   <Col md={6}>tel</Col>
                                   <Col md={6}>{item.tel}</Col>
-                                  <Col md={6}>line</Col>
-                                  <Col md={6}>{item.line}</Col>
                                   <Col md={6}>department</Col>
                                   <Col md={6}>{item.department}</Col>
                                 </Row>

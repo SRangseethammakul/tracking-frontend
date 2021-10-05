@@ -72,15 +72,17 @@ const QRGenaretor = () => {
   }
   return (
     <div>
-      <Container>
+      <Container className="mt-3">
         <Row>
           <Col>
             <h2>QR Code Generetor</h2>
             <label id="driver-label">Select Driver</label>
             <Select onChange={handleChangeDriver} options={options} />
-            <label id="timing-label">Timing Driver</label>
+            <label id="timing-label">Select Timing</label>
             <Select onChange={handleChangeTiming} options={optionsTiming} />
-            <label id="route-label">Timing Driver</label>
+            <label id="route-label">Select Route</label>
+            <Select onChange={handleChangeRoute} options={optionsRoute} />
+            <label id="route-label">Select Car</label>
             <Select onChange={handleChangeRoute} options={optionsRoute} />
             <Button
               className="mt-3"

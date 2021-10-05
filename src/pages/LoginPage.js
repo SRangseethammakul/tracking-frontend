@@ -56,9 +56,6 @@ const LoginPage = () => {
       <Container className="mt-3">
         <Col md={{ span: 6, offset: 3 }} xs={12}>
           <h1 className="display-5 text-center">ลงชื่อเข้าใช้</h1>
-          <p className="lead text-center">
-            This is a lead paragraph. It stands out from regular paragraphs.
-          </p>
 
           <Form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="email" className="form-label">
