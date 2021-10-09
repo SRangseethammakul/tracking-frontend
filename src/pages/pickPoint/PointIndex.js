@@ -17,13 +17,16 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import { useToasts } from "react-toast-notifications";
+import { BASE_URL } from "../../config/index";
 const api = axios.create({
-  baseURL: `http://localhost:4000/pickup`,
+  baseURL: `${BASE_URL}/pickup`,
 });
 const PointIndex = () => {
   const [loading, setLoading] = React.useState(false);
   const [pickups, setPickup] = React.useState([]);
   const [error, setError] = React.useState(null);
+  const { addToast } = useToasts();
   const cancelToken = React.useRef(null);
   const getData = async () => {
     try {
@@ -75,6 +78,41 @@ const PointIndex = () => {
     )),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   };
+  const handleRowUpdate = (newData, oldData, resolve) => {
+    console.log(newData);
+    api
+      .put(`/${newData.id}`, {
+        name: newData.name,
+        isUsed: newData.isUsed,
+      })
+      .then((res) => {
+        const dataUpdate = [...pickups];
+        const index = oldData.tableData.id;
+        dataUpdate[index] = newData;
+        setPickup([...dataUpdate]);
+        addToast(res.data.message, { appearance: "success" });
+        resolve();
+      })
+      .catch((err) => {
+        console.log(err.response.data.error.message);
+        setError(err.response.data.error.message);
+        resolve();
+      });
+  };
+  const handleRowAdd = (newData, resolve) => {
+    api
+      .post("/", newData)
+      .then((res) => {
+        let dataToAdd = [...pickups];
+        dataToAdd.push(newData);
+        setPickup(dataToAdd);
+        resolve();
+      })
+      .catch((err) => {
+        setError(err.message);
+        resolve();
+      });
+  };
   if (loading === true) {
     return (
       <div className="text-center mt-5">
@@ -100,12 +138,21 @@ const PointIndex = () => {
             title="Pickup Point Management"
             columns={[
                 { title: "name", field: "name" },
-                { title: "status", field: "status" },
-                // { title: "TimeStamp", field: "user_info", hidden: true },
+                { title: "status",lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" }, field: "isUsed" },
               ]}
               data={pickups}
               options={{
                 filtering: true,
+              }}
+              editable={{
+                onRowAdd: (newData) =>
+                  new Promise((resolve) => {
+                    handleRowAdd(newData, resolve);
+                  }),
+                onRowUpdate: (newData, oldData) =>
+                  new Promise((resolve) => {
+                    handleRowUpdate(newData, oldData, resolve);
+                  }),
               }}
             />
           </Col>

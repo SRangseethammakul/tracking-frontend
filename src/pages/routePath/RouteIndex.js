@@ -17,14 +17,17 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import { useToasts } from "react-toast-notifications";
+import { BASE_URL } from "../../config/index";
 const api = axios.create({
-  baseURL: `http://localhost:4000/routePath`,
+  baseURL: `${BASE_URL}/routePath`,
 });
 const RouteIndex = () => {
   const [loading, setLoading] = React.useState(false);
   const [routePaths, setRoutePath] = React.useState([]);
   const [error, setError] = React.useState(null);
   const cancelToken = React.useRef(null);
+  const { addToast } = useToasts();
   const getData = async () => {
     try {
       setLoading(true);
@@ -42,16 +45,16 @@ const RouteIndex = () => {
   };
   const handleRowUpdate = (newData, oldData, resolve) => {
     api
-      .put(`/${newData._id}`, {
+      .put(`/${newData.id}`, {
         isUsed: newData.isUsed,
         name: newData.name,
-        status: true,
       })
       .then((res) => {
         const dataUpdate = [...routePaths];
         const index = oldData.tableData.id;
         dataUpdate[index] = newData;
         setRoutePath([...dataUpdate]);
+        addToast(res.data.message, { appearance: "success" });
         resolve();
       })
       .catch((err) => {
@@ -73,13 +76,13 @@ const RouteIndex = () => {
   };
 
   const handleRowAdd = (newData, resolve) => {
-    console.log(newData);
     api
-      .post("/", newData)
+      .post("/insert", newData)
       .then((res) => {
         let dataToAdd = [...routePaths];
         dataToAdd.push(newData);
         setRoutePath(dataToAdd);
+        addToast(res.data.data, { appearance: "success" });
         resolve();
       })
       .catch((err) => {
@@ -147,7 +150,7 @@ const RouteIndex = () => {
             title="Route Management"
             columns={[
                 { title: "name", field: "name" },
-                { title: "status", field: "status" },
+                { title: "status",lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" }, field: "isUsed" },
                 // { title: "TimeStamp", field: "user_info", hidden: true },
               ]}
               data={routePaths}

@@ -17,13 +17,19 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import { useToasts } from "react-toast-notifications";
+import { BASE_URL } from "../../config/index";
 const api = axios.create({
-  baseURL: `http://localhost:4000/employee`,
+  baseURL: `${BASE_URL}/employee`,
 });
 const EmployeeIndex = () => {
+  const { addToast } = useToasts();
   const [loading, setLoading] = React.useState(false);
   const [employees, setEmployee] = React.useState([]);
   const [error, setError] = React.useState(null);
+  const [departments, setDepartments] = React.useState({});
+  const [routePaths, setroutePaths] = React.useState({});
+  const [pickups, setPickups] = React.useState({});
   const cancelToken = React.useRef(null);
   const getData = async () => {
     try {
@@ -33,12 +39,39 @@ const EmployeeIndex = () => {
         cancelToken: cancelToken.current.token,
       });
       setEmployee(resp.data.data);
-      console.log(resp.data.data);
+      setDepartments(resp.data.departments);
+      setroutePaths(resp.data.routePaths);
+      setPickups(resp.data.pickups);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
+  };
+  const handleRowUpdate = (newData, oldData, resolve) => {
+    api
+      .put(`/${newData._id}`, {
+        name: newData.name,
+        employeeId: newData.employeeId,
+        tel: newData.tel,
+        isUsed: true,
+        department: newData.Department.id,
+        pickupPoint: newData.pickupPoint.id,
+        routeUsed: newData.routePath.id,
+      })
+      .then((res) => {
+        const dataUpdate = [...employees];
+        const index = oldData.tableData.id;
+        dataUpdate[index] = newData;
+        setEmployee([...dataUpdate]);
+        addToast(res.data.message, { appearance: "success" });
+        resolve();
+      })
+      .catch((err) => {
+        console.log(err.response.data.error.message);
+        setError(err.response.data.error.message);
+        resolve();
+      });
   };
   React.useEffect(() => {
     cancelToken.current = axios.CancelToken.source();
@@ -95,22 +128,41 @@ const EmployeeIndex = () => {
       <Container className="mt-3">
         <Row>
           <Col>
-            <MaterialTable 
-            icons={tableIcons} 
-            title="Employee Management"
-            columns={[
+            <MaterialTable
+              icons={tableIcons}
+              title="Employee Management"
+              columns={[
                 { title: "employeeId", field: "employeeId" },
+                { title: "email",editable: "never", field: "email" },
                 { title: "name", field: "name" },
-                { title: "status", field: "status" },
-                { title: "pickupPoint", field: "pickupPoint" },
-                { title: "department", field: "department" },
-                { title: "routeUsed", field: "routeUsed" },
+                { title: "status", field: "isUsed" },
+                {
+                  title: "Department",
+                  lookup: departments,
+                  field: "Department.id",
+                },
+                {
+                  title: "เส้นทาง",
+                  lookup: routePaths,
+                  field: "routePath.id",
+                },
+                {
+                  title: "จุดรับส่ง",
+                  lookup: pickups,
+                  field: "pickupPoint.id",
+                },
                 { title: "tel", field: "tel" },
-                // { title: "TimeStamp", field: "user_info", hidden: true },
+                // { title: "TimeStamp", lookup: { 'active': "ใช้งาน", 'inactive': "ปิดใช้งาน" }, field: "user_info", hidden: true },
               ]}
               data={employees}
               options={{
                 filtering: true,
+              }}
+              editable={{
+                onRowUpdate: (newData, oldData) =>
+                  new Promise((resolve) => {
+                    handleRowUpdate(newData, oldData, resolve);
+                  }),
               }}
             />
           </Col>

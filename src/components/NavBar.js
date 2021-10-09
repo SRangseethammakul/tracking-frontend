@@ -112,7 +112,7 @@ const NavBar = () => {
                     Login
                   </NavLink>
                   <NavLink
-                    to="/register"
+                    to="/employee/register"
                     className="nav-link"
                     activeClassName="active"
                   >

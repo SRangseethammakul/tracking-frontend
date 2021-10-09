@@ -18,6 +18,7 @@ import DriverIndex from "./pages/deriver/DriverIndex";
 import RouteIndex from "./pages/routePath/RouteIndex";
 import PointIndex from "./pages/pickPoint/PointIndex";
 import QRGenaretor from "./pages/QRGenaretor";
+import RegisterEmployeePage from "./pages/RegisterEmployeePage";
 const { store } = configureStore();
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
                 </Route>
                 <Route exact path="/login">
                   <LoginPage />
+                </Route>
+                <Route exact path="/employee/register">
+                  <RegisterEmployeePage />
                 </Route>
                 <Route exact path="/register">
                   <RegisterPage />

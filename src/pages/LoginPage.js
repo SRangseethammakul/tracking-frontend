@@ -47,8 +47,9 @@ const LoginPage = () => {
       addToast("login success", { appearance: "success" });
       dispatch(updateProfile(profileValue));
       history.replace("/");
-    } catch (error) {
-      console.log(error.message);
+    } catch (err) {
+      addToast(err.response.data.error.message, { appearance: "error" });
+      console.log(err.message);
     }
   };
   return (
