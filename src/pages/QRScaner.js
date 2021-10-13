@@ -17,13 +17,6 @@ const QRScaner = () => {
   const handleError = (err) => {
     console.error(err);
   };
-  const getProfile = () => {
-    const profileValue = JSON.parse(localStorage.getItem("profile"));
-  };
-  React.useEffect(() => {
-    getProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <>
       <h2 className="text-center">QR </h2>
