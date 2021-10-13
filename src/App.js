@@ -60,9 +60,9 @@ function App() {
                 <AdminRoute exact path="/pickup">
                   <PointIndex />
                 </AdminRoute>
-                <Route exact path="/scan">
+                <PrivateRoute exact path="/scan">
                   <QRScaner />
-                </Route>
+                </PrivateRoute>
                 <AdminRoute exact path="/generator">
                   <QRGenaretor />
                 </AdminRoute>
