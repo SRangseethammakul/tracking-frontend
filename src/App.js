@@ -45,21 +45,21 @@ function App() {
                 <Route exact path="/register">
                   <RegisterPage />
                 </Route>
-                <Route exact path="/employee">
+                <AdminRoute exact path="/employee">
                   <EmployeeIndex />
-                </Route>
-                <Route exact path="/car">
+                </AdminRoute>
+                <AdminRoute exact path="/car">
                   <CarIndex />
-                </Route>
-                <Route exact path="/driver">
+                </AdminRoute>
+                <AdminRoute exact path="/driver">
                   <DriverIndex />
-                </Route>
-                <Route exact path="/routepath">
+                </AdminRoute>
+                <AdminRoute exact path="/routepath">
                   <RouteIndex />
-                </Route>
-                <Route exact path="/pickup">
+                </AdminRoute>
+                <AdminRoute exact path="/pickup">
                   <PointIndex />
-                </Route>
+                </AdminRoute>
                 <Route exact path="/scan">
                   <QRScaner />
                 </Route>

@@ -29,10 +29,11 @@ const CarIndex = () => {
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const handleRowUpdate = (newData, oldData, resolve) => {
     api
-      .put(`/${newData._id}`, {
+      .put(`/${newData.id}`, {
         isUsed: newData.isUsed,
         name: newData.name,
-        status: true,
+        status: newData.isUsed,
+        tel: newData.tel,
       })
       .then((res) => {
         const dataUpdate = [...drivers];
@@ -44,10 +45,7 @@ const CarIndex = () => {
       .catch((err) => {
         setError(err.message);
         if (err.response) {
-          console.log(err.response.data);
           setError(err.response.data.message);
-          console.log(err.response.status);
-          console.log(err.response.headers);
         } else if (err.request) {
           console.log(err.request);
           setError(err.request);
@@ -151,12 +149,12 @@ const CarIndex = () => {
               icons={tableIcons}
               title="Driver Management"
               columns={[
-                { title: "id", field: "_id", editable: "never", hidden: true },
+                { title: "id", field: "id", editable: "never", hidden: true },
                 { title: "name", field: "name" },
                 {
                   title: "status",
-                  field: "status",
-                  lookup: { 'active': "ใช้งาน", 'inactive': "ปิดใช้งาน" },
+                  field: "isUsed",
+                  lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
                 },
                 { title: "tel", field: "tel" },
               ]}

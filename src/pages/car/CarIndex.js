@@ -25,15 +25,25 @@ const CarIndex = () => {
   const [loading, setLoading] = React.useState(false);
   const [cars, setCar] = React.useState([]);
   const [error, setError] = React.useState(null);
+  const [drivers, setDrivers] = React.useState({});
   const cancelToken = React.useRef(null);
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const handleRowUpdate = (newData, oldData, resolve) => {
+    console.log(newData);
     api
-      .put(`/${newData._id}`, {
-        isUsed: newData.isUsed,
-        name: newData.name,
-        status: true,
-      })
+      .put(
+        `/${newData.id}`,
+        {
+          isUsed: newData.isUsed,
+          numberPlate: newData.numberPlate,
+          driver: newData.driver,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + profileValue.access_token,
+          },
+        }
+      )
       .then((res) => {
         const dataUpdate = [...cars];
         const index = oldData.tableData.id;
@@ -44,25 +54,23 @@ const CarIndex = () => {
       .catch((err) => {
         setError(err.message);
         if (err.response) {
-          console.log(err.response.data);
           setError(err.response.data.message);
-          console.log(err.response.status);
-          console.log(err.response.headers);
         } else if (err.request) {
-          console.log(err.request);
           setError(err.request);
         } else {
           setError(err.message);
-          console.log("Error", err.message);
         }
         resolve();
       });
   };
 
   const handleRowAdd = (newData, resolve) => {
-    console.log(newData);
     api
-      .post("/", newData)
+      .post("/", newData, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
+      })
       .then((res) => {
         let dataToAdd = [...cars];
         dataToAdd.push(newData);
@@ -85,6 +93,7 @@ const CarIndex = () => {
         cancelToken: cancelToken.current.token,
       });
       setCar(resp.data.data);
+      setDrivers(resp.data.driver);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -158,7 +167,7 @@ const CarIndex = () => {
                   field: "isUsed",
                   lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
                 },
-                { title: "driver", field: "driver" },
+                { title: "driver", lookup: drivers, field: "driver" },
               ]}
               data={cars}
               options={{

@@ -1,19 +1,32 @@
 import React from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import QrReader from "react-qr-reader";
+import { useSelector } from "react-redux";
 const QRScaner = () => {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = React.useState({});
+  const profileRedux = useSelector((state) => state.authReducer.profile);
   const handleScan = (dataScan) => {
     if (dataScan) {
-      setData(dataScan);
+      let route = JSON.parse(dataScan);
+      if(route.route !== profileRedux.routePath){
+        alert("Error");
+      }
+      setData(route);
     }
   };
   const handleError = (err) => {
     console.error(err);
   };
+  const getProfile = () => {
+    const profileValue = JSON.parse(localStorage.getItem("profile"));
+  };
+  React.useEffect(() => {
+    getProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
-      <h2 className="text-center">QR</h2>
+      <h2 className="text-center">QR </h2>
       <Container>
         <Row>
           <Col>
@@ -23,7 +36,7 @@ const QRScaner = () => {
               onScan={handleScan}
               style={{ width: "100%" }}
             />
-            <p>{data}</p>
+            <p>{data.route}</p>
           </Col>
         </Row>
       </Container>

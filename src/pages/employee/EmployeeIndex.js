@@ -20,7 +20,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import { useToasts } from "react-toast-notifications";
 import { BASE_URL } from "../../config/index";
 const api = axios.create({
-  baseURL: `${BASE_URL}/employee`,
+  baseURL: `${BASE_URL}/userControl`,
 });
 const EmployeeIndex = () => {
   const { addToast } = useToasts();
@@ -31,11 +31,15 @@ const EmployeeIndex = () => {
   const [routePaths, setroutePaths] = React.useState({});
   const [pickups, setPickups] = React.useState({});
   const cancelToken = React.useRef(null);
+  const profileValue = JSON.parse(localStorage.getItem("token"));
   const getData = async () => {
     try {
       setLoading(true);
       const urlPath = `/`;
       const resp = await api.get(urlPath, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
         cancelToken: cancelToken.current.token,
       });
       setEmployee(resp.data.data);
@@ -58,6 +62,10 @@ const EmployeeIndex = () => {
         department: newData.Department.id,
         pickupPoint: newData.pickupPoint.id,
         routeUsed: newData.routePath.id,
+      },{
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
       })
       .then((res) => {
         const dataUpdate = [...employees];
