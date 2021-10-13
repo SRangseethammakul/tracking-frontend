@@ -8,8 +8,10 @@ const QRScaner = () => {
   const handleScan = (dataScan) => {
     if (dataScan) {
       let route = JSON.parse(dataScan);
-      if(route.route !== profileRedux.routePath){
+      if (route.route !== profileRedux.routePath) {
         alert("Error");
+      } else {
+        alert("Success");
       }
       setData(route);
     }
