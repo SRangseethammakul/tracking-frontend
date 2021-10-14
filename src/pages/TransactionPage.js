@@ -17,12 +17,9 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-
+import { BASE_URL } from "../config/index";
 const api = axios.create({
-  baseURL: `http://localhost:4000/transaction`,
-  //   headers: {
-  //     Authorization: "Bearer " + profileValue.access_token,
-  //   },
+  baseURL: `${BASE_URL}/transaction`,
 });
 const TransactionPage = () => {
   const [loading, setLoading] = React.useState(false);
