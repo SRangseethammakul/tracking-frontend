@@ -91,6 +91,13 @@ const NavBar = () => {
                   >
                     Pickup Management
                   </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/generator");
+                    }}
+                  >
+                    QR generator
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : null}
             </Nav>
