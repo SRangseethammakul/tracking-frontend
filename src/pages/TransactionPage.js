@@ -111,42 +111,42 @@ const TransactionPage = () => {
                 { title: "TimeStamp", field: "user_info", hidden: true },
               ]}
               data={datas}
-              detailPanel={[
-                {
-                  icon: "<FilterList />",
-                  tooltip: "Show Surname",
-                  render: (rowData) => {
-                    console.log(rowData);
-                    return (
-                      <div
-                        style={{
-                          fontSize: 32,
-                          textAlign: "center",
-                          color: "white",
-                          backgroundColor: "#E53935",
-                        }}
-                      >
-                        {rowData.user}
-                        <br />
-                        {rowData.user_info.map((item, index) => {
-                          return (
-                            <>
-                              <Container>
-                                <Row>
-                                  <Col md={6}>tel</Col>
-                                  <Col md={6}>{item.tel}</Col>
-                                  <Col md={6}>department</Col>
-                                  <Col md={6}>{item.department}</Col>
-                                </Row>
-                              </Container>
-                            </>
-                          );
-                        })}
-                      </div>
-                    );
-                  },
-                },
-              ]}
+              // detailPanel={[
+              //   {
+              //     icon: "<FilterList />",
+              //     tooltip: "Show Surname",
+              //     render: (rowData) => {
+              //       console.log(rowData);
+              //       return (
+              //         <div
+              //           style={{
+              //             fontSize: 32,
+              //             textAlign: "center",
+              //             color: "white",
+              //             backgroundColor: "#E53935",
+              //           }}
+              //         >
+              //           {rowData.user}
+              //           <br />
+              //           {rowData.user_info.map((item, index) => {
+              //             return (
+              //               <>
+              //                 <Container>
+              //                   <Row>
+              //                     <Col md={6}>tel</Col>
+              //                     <Col md={6}>{item.tel}</Col>
+              //                     <Col md={6}>department</Col>
+              //                     <Col md={6}>{item.department}</Col>
+              //                   </Row>
+              //                 </Container>
+              //               </>
+              //             );
+              //           })}
+              //         </div>
+              //       );
+              //     },
+              //   },
+              // ]}
               options={{
                 exportButton: true,
                 filtering: true,
