@@ -3,6 +3,7 @@ import { Row, Container, Col } from "react-bootstrap";
 import QrReader from "react-qr-reader";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 const QRScaner = () => {
   const MySwal = withReactContent(Swal);
   const [data, setData] = React.useState({});
