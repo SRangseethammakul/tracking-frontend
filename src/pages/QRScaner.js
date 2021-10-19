@@ -29,8 +29,6 @@ const QRScaner = () => {
           title: "คุณขึ้นรถผิดเส้นทาง",
           showConfirmButton: false,
           timer: 3000,
-        }).then(() => {
-          return MySwal.fire(<p>Shorthand works too</p>);
         });
       } else {
         MySwal.fire({
@@ -74,13 +72,6 @@ const QRScaner = () => {
   return (
     <>
       <h2 className="text-center">QR </h2>
-      <button
-        className="btn btn-outline-success ml-2"
-        onClick={() => handleScan("product")}
-      >
-        ddd
-      </button>
-
       <Container>
         {reading ? (
           <Row>
@@ -97,6 +88,12 @@ const QRScaner = () => {
         ) : (
           <Row>
             <Col>
+              <button
+                className="btn btn-outline-success ml-2"
+                onClick={() => setReading(true)}
+              >
+                สแกนอีกครั้ง
+              </button>
               <h2>Hello</h2>
             </Col>
           </Row>
