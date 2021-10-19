@@ -88,13 +88,14 @@ const QRScaner = () => {
         ) : (
           <Row>
             <Col>
-              <button
-                className="btn btn-outline-success ml-2"
-                onClick={() => setReading(true)}
-              >
-                สแกนอีกครั้ง
-              </button>
-              <h2>Hello</h2>
+              <div className="text-center">
+                <button
+                  className="btn btn-outline-success ml-2"
+                  onClick={() => setReading(true)}
+                >
+                  สแกนอีกครั้ง
+                </button>
+              </div>
             </Col>
           </Row>
         )}
