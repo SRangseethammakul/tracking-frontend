@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import withReactContent from "sweetalert2-react-content";
 import { BASE_URL } from "../config/index";
 const api = axios.create({
-  baseURL: `${BASE_URL}/driver`,
+  baseURL: `${BASE_URL}`,
 });
 const QRScaner = () => {
   const MySwal = withReactContent(Swal);
