@@ -2,16 +2,31 @@ import React from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import QrReader from "react-qr-reader";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 const QRScaner = () => {
+  const MySwal = withReactContent(Swal);
   const [data, setData] = React.useState({});
   const profileRedux = useSelector((state) => state.authReducer.profile);
   const handleScan = (dataScan) => {
     if (dataScan) {
       let route = JSON.parse(dataScan);
       if (route.route !== profileRedux.routePath) {
-        alert("Error");
+        MySwal.fire({
+          icon: "error",
+          title: "คุณขึ้นรถผิดเส้นทาง",
+          showConfirmButton: false,
+          timer: 3000,
+        }).then(() => {
+          return MySwal.fire(<p>Shorthand works too</p>);
+        });
       } else {
-        alert("Success");
+        MySwal.fire({
+          icon: "success",
+          title: "ยืนยันการขึ้นรถ",
+          showConfirmButton: true,
+        }).then(() => {
+          return MySwal.fire(<p>Shorthand works too</p>);
+        });
       }
       setData(route);
     }
