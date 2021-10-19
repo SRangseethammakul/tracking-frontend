@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 const QRScaner = () => {
   const MySwal = withReactContent(Swal);
+  const [reading, setReading] = React.useState(true);
   const [data, setData] = React.useState({});
   const profileRedux = useSelector((state) => state.authReducer.profile);
   const handleScan = (dataScan) => {
     if (dataScan) {
+      setReading(false)
       let route = JSON.parse(dataScan);
       if (route.route !== profileRedux.routePath) {
         MySwal.fire({
@@ -39,17 +41,25 @@ const QRScaner = () => {
     <>
       <h2 className="text-center">QR </h2>
       <Container>
-        <Row>
-          <Col>
-            <QrReader
-              delay={300}
-              onError={handleError}
-              onScan={handleScan}
-              style={{ width: "100%" }}
-            />
-            <p>{data.route}</p>
-          </Col>
-        </Row>
+        {reading ? (
+          <Row>
+            <Col>
+              <QrReader
+                delay={300}
+                onError={handleError}
+                onScan={handleScan}
+                style={{ width: "100%" }}
+              />
+              <p>{data.route}</p>
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col>
+            <h2>Hello</h2>
+            </Col>
+          </Row>
+        )}
       </Container>
     </>
   );
