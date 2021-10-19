@@ -43,6 +43,7 @@ const QRGenaretor = () => {
   };
   const getData = async () => {
     try {
+      alert("ffff");
       setLoading(true);
       const urlPath = `/`;
       const resp = await api.get(urlPath, {
