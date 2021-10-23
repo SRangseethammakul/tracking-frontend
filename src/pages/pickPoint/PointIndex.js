@@ -26,6 +26,7 @@ const PointIndex = () => {
   const [loading, setLoading] = React.useState(false);
   const [pickups, setPickup] = React.useState([]);
   const [error, setError] = React.useState(null);
+  const profileValue = JSON.parse(localStorage.getItem("token"));
   const { addToast } = useToasts();
   const cancelToken = React.useRef(null);
   const getData = async () => {
@@ -33,6 +34,9 @@ const PointIndex = () => {
       setLoading(true);
       const urlPath = `/`;
       const resp = await api.get(urlPath, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
         cancelToken: cancelToken.current.token,
       });
       setPickup(resp.data.data);
@@ -81,10 +85,18 @@ const PointIndex = () => {
   const handleRowUpdate = (newData, oldData, resolve) => {
     console.log(newData);
     api
-      .put(`/${newData.id}`, {
-        name: newData.name,
-        isUsed: newData.isUsed,
-      })
+      .put(
+        `/${newData.id}`,
+        {
+          name: newData.name,
+          isUsed: newData.isUsed,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + profileValue.access_token,
+          },
+        }
+      )
       .then((res) => {
         const dataUpdate = [...pickups];
         const index = oldData.tableData.id;
@@ -101,7 +113,11 @@ const PointIndex = () => {
   };
   const handleRowAdd = (newData, resolve) => {
     api
-      .post("/", newData)
+      .post("/", newData, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
+      })
       .then((res) => {
         let dataToAdd = [...pickups];
         dataToAdd.push(newData);
@@ -133,12 +149,16 @@ const PointIndex = () => {
       <Container className="mt-3">
         <Row>
           <Col>
-            <MaterialTable 
-            icons={tableIcons} 
-            title="Pickup Point Management"
-            columns={[
+            <MaterialTable
+              icons={tableIcons}
+              title="Pickup Point Management"
+              columns={[
                 { title: "name", field: "name" },
-                { title: "status",lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" }, field: "isUsed" },
+                {
+                  title: "status",
+                  lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
+                  field: "isUsed",
+                },
               ]}
               data={pickups}
               options={{

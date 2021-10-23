@@ -21,6 +21,7 @@ const QRScaner = () => {
   const profileRedux = useSelector((state) => state.authReducer.profile);
   const handleScan = (dataScan) => {
     if (dataScan) {
+      setReading(false);
       let route = JSON.parse(dataScan);
       if (route.route !== profileRedux.routePath) {
         MySwal.fire({

@@ -29,12 +29,20 @@ const CarIndex = () => {
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const handleRowUpdate = (newData, oldData, resolve) => {
     api
-      .put(`/${newData.id}`, {
-        isUsed: newData.isUsed,
-        name: newData.name,
-        status: newData.isUsed,
-        tel: newData.tel,
-      })
+      .put(
+        `/${newData.id}`,
+        {
+          isUsed: newData.isUsed,
+          name: newData.name,
+          status: newData.isUsed,
+          tel: newData.tel,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + profileValue.access_token,
+          },
+        }
+      )
       .then((res) => {
         const dataUpdate = [...drivers];
         const index = oldData.tableData.id;
@@ -58,9 +66,12 @@ const CarIndex = () => {
   };
 
   const handleRowAdd = (newData, resolve) => {
-    console.log(newData);
     api
-      .post("/", newData)
+      .post("/", newData, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
+      })
       .then((res) => {
         let dataToAdd = [...drivers];
         dataToAdd.push(newData);
