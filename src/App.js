@@ -19,7 +19,6 @@ import RouteIndex from "./pages/routePath/RouteIndex";
 import PointIndex from "./pages/pickPoint/PointIndex";
 import QRGenaretor from "./pages/QRGenaretor";
 import RegisterEmployeePage from "./pages/RegisterEmployeePage";
-import PdfTest from "./pages/PdfTest";
 const { store } = configureStore();
 function App() {
   return (
