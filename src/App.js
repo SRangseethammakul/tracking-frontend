@@ -70,9 +70,6 @@ function App() {
                 <AdminRoute exact path="/transaction">
                   <TransactionPage />
                 </AdminRoute>
-                <Route exact path="/pdf">
-                  <PdfTest />
-                </Route>
               </Switch>
             </Router>
           </ToastProvider>
