@@ -27,12 +27,16 @@ const RouteIndex = () => {
   const [routePaths, setRoutePath] = React.useState([]);
   const [error, setError] = React.useState(null);
   const cancelToken = React.useRef(null);
+  const profileValue = JSON.parse(localStorage.getItem("token"));
   const { addToast } = useToasts();
   const getData = async () => {
     try {
       setLoading(true);
       const urlPath = `/`;
       const resp = await api.get(urlPath, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
         cancelToken: cancelToken.current.token,
       });
       setRoutePath(resp.data.data);
@@ -45,10 +49,18 @@ const RouteIndex = () => {
   };
   const handleRowUpdate = (newData, oldData, resolve) => {
     api
-      .put(`/${newData.id}`, {
-        isUsed: newData.isUsed,
-        name: newData.name,
-      })
+      .put(
+        `/${newData.id}`,
+        {
+          isUsed: newData.isUsed,
+          name: newData.name,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + profileValue.access_token,
+          },
+        }
+      )
       .then((res) => {
         const dataUpdate = [...routePaths];
         const index = oldData.tableData.id;
@@ -77,7 +89,11 @@ const RouteIndex = () => {
 
   const handleRowAdd = (newData, resolve) => {
     api
-      .post("/insert", newData)
+      .post("/insert", newData, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
+      })
       .then((res) => {
         let dataToAdd = [...routePaths];
         dataToAdd.push(newData);
@@ -145,12 +161,16 @@ const RouteIndex = () => {
       <Container className="mt-3">
         <Row>
           <Col>
-            <MaterialTable 
-            icons={tableIcons} 
-            title="Route Management"
-            columns={[
+            <MaterialTable
+              icons={tableIcons}
+              title="Route Management"
+              columns={[
                 { title: "name", field: "name" },
-                { title: "status",lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" }, field: "isUsed" },
+                {
+                  title: "status",
+                  lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
+                  field: "isUsed",
+                },
                 // { title: "TimeStamp", field: "user_info", hidden: true },
               ]}
               data={routePaths}

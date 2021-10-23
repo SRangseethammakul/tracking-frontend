@@ -29,7 +29,6 @@ const CarIndex = () => {
   const cancelToken = React.useRef(null);
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const handleRowUpdate = (newData, oldData, resolve) => {
-    console.log(newData);
     api
       .put(
         `/${newData.id}`,
