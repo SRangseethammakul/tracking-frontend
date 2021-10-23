@@ -3,7 +3,9 @@ import { Container, Col, Row, Button } from "react-bootstrap";
 import Select from "react-select";
 import { BASE_URL } from "../config/index";
 import axios from "axios";
-const QRCode = require("qrcode.react");
+import QRCode from "qrcode.react";
+import { jsPDF } from "jspdf";
+import { format } from "date-fns";
 const api = axios.create({
   baseURL: `${BASE_URL}/information/forQR`,
 });
@@ -60,6 +62,21 @@ const QRGenaretor = () => {
       setLoading(false);
     }
   };
+  const generatePDF = () => {
+    // Defines the pdf
+    let result = format(new Date(), "PPPP");
+    let pdf = new jsPDF("p", "mm", "a4");
+
+    // Transforms the canvas into a base64 image
+    let base64Image = document.getElementById("qrcode").toDataURL();
+
+    // Adds the image to the pdf
+    pdf.addImage(base64Image, "png", 70, 50, 70, 70);
+    pdf.text(105, 30, "Reckitt Benckiser", { align: "center" });
+    pdf.text(105, 40, result, { align: "center" });
+    // Downloads the pdf
+    pdf.save("QR.pdf");
+  };
   React.useEffect(() => {
     cancelToken.current = axios.CancelToken.source();
     getData();
@@ -86,7 +103,11 @@ const QRGenaretor = () => {
           </Row>
         </Container>
         <div className="text-center mt-5">
-          <QRCode value={JSON.stringify({ timing: timing, car: car, route:route })}  />
+          <QRCode
+            value={JSON.stringify({ timing: timing, car: car, route: route })}
+            id="qrcode"
+          />
+          <button onClick={generatePDF}>Download pdf</button>
         </div>
       </>
     );
