@@ -146,9 +146,11 @@ const TransactionPage = () => {
               //       );
               //     },
               //   },
-              // ]}
               options={{
-                exportButton: true,
+                exportButton: {
+                  csv: true,
+                  pdf: false,
+                },
                 filtering: true,
               }}
             />

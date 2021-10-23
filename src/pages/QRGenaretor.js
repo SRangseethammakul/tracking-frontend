@@ -107,7 +107,17 @@ const QRGenaretor = () => {
             value={JSON.stringify({ timing: timing, car: car, route: route })}
             id="qrcode"
           />
-          <button onClick={generatePDF}>Download pdf</button>
+          <br />
+          <Button
+            className="mt-3"
+            variant="primary"
+            type="button"
+            onClick={() => {
+              generatePDF();
+            }}
+          >
+            Download pdf QR Code
+          </Button>
         </div>
       </>
     );
