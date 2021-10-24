@@ -20,6 +20,7 @@ import PointIndex from "./pages/pickPoint/PointIndex";
 import QRGenaretor from "./pages/QRGenaretor";
 import RegisterEmployeePage from "./pages/RegisterEmployeePage";
 import DepartmentIndex from "./pages/department/DepartmentIndex";
+import ProfileUser from "./pages/ProfileUser";
 const { store } = configureStore();
 function App() {
   return (
@@ -63,6 +64,9 @@ function App() {
                 </AdminRoute>
                 <PrivateRoute exact path="/scan">
                   <QRScaner />
+                </PrivateRoute>
+                <PrivateRoute exact path="/profile">
+                  <ProfileUser />
                 </PrivateRoute>
                 <AdminRoute exact path="/generator">
                   <QRGenaretor />

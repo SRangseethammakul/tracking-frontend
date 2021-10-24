@@ -24,11 +24,12 @@ const QRScaner = () => {
       setReading(false);
       let route = JSON.parse(dataScan);
       if (route.route !== profileRedux.routePath) {
+        setShowButton(false);
         MySwal.fire({
           icon: "error",
           title: "คุณขึ้นรถผิดเส้นทาง",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
         }).then(() => {
           setReading(false);
           setShowButton(false);
@@ -88,7 +89,7 @@ const QRScaner = () => {
             </Col>
           </Row>
         ) : (
-          <Row>
+          <Row className="mt-5">
             <Col>
               {showButton ? (
                 <div className="text-center">

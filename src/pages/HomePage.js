@@ -27,9 +27,9 @@ const HomePage = () => {
               <div className="card-body">
                 <h5 className="card-title">Profile</h5>
                 <p className="card-text">จัดการ Profile</p>
-                <Link to="/">
+                <Link to="/profile">
                   <Button variant="outline-success" className="float-right">
-                    Profile
+                    Profile <BsBoxArrowInRight />
                   </Button>{" "}
                 </Link>
               </div>
