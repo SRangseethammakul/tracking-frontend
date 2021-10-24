@@ -13,7 +13,7 @@ import { BASE_URL } from "../config/index";
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const api = axios.create({
-  baseURL: `${BASE_URL}/employee`,
+  baseURL: `${BASE_URL}/`,
 });
 const schema = yup.object().shape({
   name: yup.string().required("name not empty"),
@@ -73,7 +73,7 @@ const RegisterEmployeePage = () => {
           timer: 3000,
         });
       } else {
-        const pathURL = `/`;
+        const pathURL = `/users/register`;
         const resp = await api.post(pathURL, {
           name: data.name,
           email: data.email,
@@ -86,11 +86,11 @@ const RegisterEmployeePage = () => {
         });
         MySwal.fire({
           icon: "success",
-          title: resp.data.data,
+          title: resp.data.message,
           showConfirmButton: false,
           timer: 3000,
         });
-        addToast(resp.data.data, { appearance: "success" });
+        addToast(resp.data.message, { appearance: "success" });
         history.replace("/login");
       }
     } catch (err) {
@@ -106,7 +106,7 @@ const RegisterEmployeePage = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const urlPath = `/information`;
+      const urlPath = `/employee/information`;
       const resp = await api.get(urlPath, {
         cancelToken: cancelToken.current.token,
       });
