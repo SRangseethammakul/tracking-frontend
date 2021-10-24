@@ -118,6 +118,20 @@ const QRGenaretor = () => {
           >
             Download pdf QR Code
           </Button>
+          <br />
+          <Button
+            className="mt-3"
+            variant="danger"
+            type="button"
+            onClick={() => {
+              setCar(null);
+              setRoute(null);
+              setTiming(null);
+              setLoading(false);
+            }}
+          >
+            Claer Data
+          </Button>
         </div>
       </>
     );

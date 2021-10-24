@@ -16,7 +16,7 @@ const QRScaner = () => {
   const { addToast } = useToasts();
   const history = useHistory();
   const [reading, setReading] = React.useState(true);
-  const [data, setData] = React.useState({});
+  const [showButton, setShowButton] = React.useState(true);
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const profileRedux = useSelector((state) => state.authReducer.profile);
   const handleScan = (dataScan) => {
@@ -31,8 +31,10 @@ const QRScaner = () => {
           timer: 3000,
         }).then(() => {
           setReading(false);
+          setShowButton(false);
         });
       } else {
+        setShowButton(true);
         MySwal.fire({
           icon: "warning",
           title: "ยืนยันการขึ้นรถ",
@@ -65,7 +67,6 @@ const QRScaner = () => {
           }
         });
       }
-      setData(route);
     }
   };
   const handleError = (err) => {
@@ -84,20 +85,25 @@ const QRScaner = () => {
                 onScan={handleScan}
                 style={{ width: "100%" }}
               />
-              <p>{data.route}</p>
             </Col>
           </Row>
         ) : (
           <Row>
             <Col>
-              <div className="text-center">
-                <button
-                  className="btn btn-outline-success ml-2"
-                  onClick={() => setReading(true)}
-                >
-                  สแกนอีกครั้ง
-                </button>
-              </div>
+              {showButton ? (
+                <div className="text-center">
+                  <h3>กำลังบันทึกข้อมูล</h3>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <button
+                    className="btn btn-outline-success ml-2"
+                    onClick={() => setReading(true)}
+                  >
+                    สแกนอีกครั้ง
+                  </button>
+                </div>
+              )}
             </Col>
           </Row>
         )}
