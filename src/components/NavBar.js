@@ -59,6 +59,13 @@ const NavBar = () => {
                   >
                     Employee Management
                   </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/department");
+                    }}
+                  >
+                    Department Management
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : null}
               {profileRedux && profileRedux.role === "admin" ? (

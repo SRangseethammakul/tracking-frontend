@@ -19,6 +19,7 @@ import RouteIndex from "./pages/routePath/RouteIndex";
 import PointIndex from "./pages/pickPoint/PointIndex";
 import QRGenaretor from "./pages/QRGenaretor";
 import RegisterEmployeePage from "./pages/RegisterEmployeePage";
+import DepartmentIndex from "./pages/department/DepartmentIndex";
 const { store } = configureStore();
 function App() {
   return (
@@ -68,6 +69,9 @@ function App() {
                 </AdminRoute>
                 <AdminRoute exact path="/transaction">
                   <TransactionPage />
+                </AdminRoute>
+                <AdminRoute exact path="/department">
+                  <DepartmentIndex />
                 </AdminRoute>
               </Switch>
             </Router>
