@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row, Button, Spinner } from "react-bootstrap";
 import Select from "react-select";
 import { BASE_URL } from "../config/index";
 import axios from "axios";
@@ -53,6 +53,7 @@ const api = axios.create({
   baseURL: `${BASE_URL}/information/forQR`,
 });
 const QRGenaretor = () => {
+  const [wating, setWating] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [showing, setShowing] = React.useState(false);
   const profileValue = JSON.parse(localStorage.getItem("token"));
@@ -103,6 +104,7 @@ const QRGenaretor = () => {
   };
   const getData = async () => {
     try {
+      setWating(true);
       setTiming(null);
       setCar(null);
       setRoute(null);
@@ -120,6 +122,7 @@ const QRGenaretor = () => {
     } catch (err) {
       setError(err.message);
     } finally {
+      setWating(false);
       setLoading(false);
     }
   };
@@ -131,6 +134,13 @@ const QRGenaretor = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  if (wating === true) {
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="grow" variant="info" />
+      </div>
+    );
+  }
   if (error) {
     return (
       <div className="text-center mt-5">
