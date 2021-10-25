@@ -6,6 +6,12 @@ export default function PrivateRoute({ children, ...rest }) {
   if (token) {
     isAuth = true;
   }
+  if (token && Date.now() >= token.expires_in * 1000) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("profile");
+    history.replace("/");
+    dispatch(updateProfile(null));
+  }
   return (
     <Route
       {...rest}
