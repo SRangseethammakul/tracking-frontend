@@ -13,7 +13,7 @@ export default function PrivateRoute({ children, ...rest }) {
   if (token && Date.now() >= token.expires_in * 1000) {
     localStorage.removeItem("token");
     localStorage.removeItem("profile");
-    history.replace("/");
+    history.replace("/login");
     dispatch(updateProfile(null));
   }
   return (

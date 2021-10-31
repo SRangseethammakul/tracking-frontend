@@ -106,6 +106,7 @@ const TransactionPage = () => {
                 { title: "Name", field: "user" },
                 { title: "ป้ายทะเบียน", field: "numberPlate" },
                 { title: "driverName", field: "driverName" },
+                { title: "route name", field: "routePath" },
                 { title: "TimeStamp", field: "datetime" },
                 { title: "definition", field: "definition" },
                 { title: "TimeStamp", field: "user_info", hidden: true },
