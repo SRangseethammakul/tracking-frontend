@@ -140,8 +140,7 @@ const EmployeeIndex = () => {
               icons={tableIcons}
               title="Employee Management"
               columns={[
-                { title: "employeeId", field: "employeeId" },
-                { title: "email",editable: "never", field: "email" },
+                { title: "employeeId",editable: "never", field: "employeeId" },
                 { title: "name", field: "name" },
                 { title: "status", field: "isUsed" },
                 {

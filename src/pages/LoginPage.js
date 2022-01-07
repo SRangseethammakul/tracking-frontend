@@ -10,7 +10,7 @@ import { updateProfile } from "../redux/actions/authAction";
 import { useToasts } from "react-toast-notifications";
 import { BASE_URL } from "../config/index";
 const schema = yup.object().shape({
-  email: yup.string().required("email not empty").email("invalid format"),
+  employeeId: yup.string().required("employeeId not empty"),
   password: yup.string().required("password not empty"),
 });
 
@@ -30,7 +30,7 @@ const LoginPage = () => {
     try {
       const pathURL = `${BASE_URL}/users/login`;
       const resp = await axios.post(pathURL, {
-        email: data.email,
+        employeeId: data.employeeId,
         password: data.password,
       });
       localStorage.setItem("token", JSON.stringify(resp.data));
@@ -59,27 +59,27 @@ const LoginPage = () => {
           <h1 className="display-5 text-center">ลงชื่อเข้าใช้</h1>
 
           <Form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="email" className="form-label">
-              Email address
+            <label htmlFor="employeeId" className="form-label">
+            employeeId
             </label>
             <input
               name="email"
-              type="email"
+              type="text"
               id="email"
               aria-describedby="validationServerUsernameFeedback"
               className={`form-control mb-1 ${
-                errors.email ? "is-invalid" : ""
+                errors.employeeId ? "is-invalid" : ""
               }`}
-              placeholder="name@example.com"
-              {...register("email")}
+              placeholder="employeeId"
+              {...register("employeeId")}
             />
-            {errors.email && (
+            {errors.employeeId && (
               <>
                 <div
                   id="validationServerUsernameFeedback"
                   className="invalid-feedback"
                 >
-                  {errors.email.message}
+                  {errors.employeeId.message}
                 </div>
               </>
             )}
