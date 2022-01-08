@@ -21,6 +21,7 @@ import QRGenaretor from "./pages/QRGenaretor";
 import RegisterEmployeePage from "./pages/RegisterEmployeePage";
 import DepartmentIndex from "./pages/department/DepartmentIndex";
 import ProfileUser from "./pages/ProfileUser";
+import UploadExcel from "./pages/UploadExcel";
 const { store } = configureStore();
 function App() {
   return (
@@ -40,6 +41,9 @@ function App() {
                 </Route>
                 <Route exact path="/login">
                   <LoginPage />
+                </Route>
+                <Route exact path="/uploadexcel">
+                  <UploadExcel />
                 </Route>
                 <Route exact path="/employee/register">
                   <RegisterEmployeePage />
