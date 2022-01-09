@@ -45,9 +45,9 @@ function App() {
                 <Route exact path="/uploadexcel">
                   <UploadExcel />
                 </Route>
-                <Route exact path="/employee/register">
+                {/* <Route exact path="/employee/register">
                   <RegisterEmployeePage />
-                </Route>
+                </Route> */}
                 <Route exact path="/register">
                   <RegisterPage />
                 </Route>

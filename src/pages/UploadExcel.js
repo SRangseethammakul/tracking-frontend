@@ -29,7 +29,7 @@ const UploadExcel = () => {
             tel: el[3],
             department: el[4],
             pickupPoint: el[5],
-            routePath: el[5],
+            routePath: el[6],
           };
         });
         setData(obje);
@@ -60,6 +60,7 @@ const UploadExcel = () => {
     setCheckPrepare(true);
   };
   const checkData = () => {
+    setCheckButton(false);
     api
       .post("/", data, {
         headers: {
