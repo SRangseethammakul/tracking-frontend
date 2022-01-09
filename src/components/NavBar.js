@@ -66,6 +66,13 @@ const NavBar = () => {
                   >
                     Department Management
                   </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/uploadexcel");
+                    }}
+                  >
+                    Upload Excel 
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : null}
               {profileRedux && profileRedux.role === "admin" ? (
@@ -124,13 +131,6 @@ const NavBar = () => {
                     activeClassName="active"
                   >
                     Login
-                  </NavLink>
-                  <NavLink
-                    to="/employee/register"
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    Register
                   </NavLink>
                 </>
               )}
