@@ -35,12 +35,12 @@ function App() {
             <Router>
               <NavBar />
               <Switch>
-                <Route exact path="/">
-                  <HomePage />
-                </Route>
                 <Route exact path="/login">
                   <LoginPage />
                 </Route>
+                <PrivateRoute exact path="/">
+                  <HomePage />
+                </PrivateRoute>
                 <AdminRoute exact path="/uploadexcel">
                   <UploadExcel />
                 </AdminRoute>
