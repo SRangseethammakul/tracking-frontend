@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaRegFileExcel } from "react-icons/fa";
 import { useToasts } from "react-toast-notifications";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import readXlsxFile from "read-excel-file";
 import { BASE_URL } from "../config/index";
@@ -9,6 +10,7 @@ const api = axios.create({
   baseURL: `${BASE_URL}/uploadexcel`,
 });
 const UploadExcel = () => {
+  const history = useHistory();
   const [loading, setLoading] = React.useState(false);
   const [checkButton, setCheckButton] = React.useState(false);
   const [checkPrepare, setCheckPrepare] = React.useState(false);
@@ -69,6 +71,7 @@ const UploadExcel = () => {
       })
       .then((res) => {
         addToast(res.data.data, { appearance: "success" });
+        history.replace("/");
       })
       .catch((err) => {
         setError(err.message);
