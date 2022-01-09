@@ -10,6 +10,8 @@ const api = axios.create({
 });
 const UploadExcel = () => {
   const [loading, setLoading] = React.useState(false);
+  const [checkButton, setCheckButton] = React.useState(false);
+  const [checkPrepare, setCheckPrepare] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState();
   const [isFilePicked, setIsFilePicked] = React.useState(false);
   const [data, setData] = React.useState([]);
@@ -31,6 +33,8 @@ const UploadExcel = () => {
           };
         });
         setData(obje);
+        setCheckButton(true);
+        setCheckPrepare(false);
       });
     } else {
       setLoading(false);
@@ -53,6 +57,7 @@ const UploadExcel = () => {
     }
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
+    setCheckPrepare(true);
   };
   const checkData = () => {
     api
@@ -101,12 +106,21 @@ const UploadExcel = () => {
               onChange={changeHandler}
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             />
-            <button className="btn btn-outline-info" onClick={onFileUpload}>
-              Upload!
-            </button>
-            <button className="btn btn-outline-danger" onClick={checkData}>
-              Upload!
-            </button>
+            {checkPrepare && (
+              <>
+                <button className="btn btn-outline-info" onClick={onFileUpload}>
+                  Prepare!
+                </button>
+              </>
+            )}
+
+            {checkButton && (
+              <>
+                <button className="btn btn-outline-danger" onClick={checkData}>
+                  Create!
+                </button>
+              </>
+            )}
           </Col>
         </Row>
       </Container>

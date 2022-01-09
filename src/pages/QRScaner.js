@@ -76,6 +76,7 @@ const QRScaner = () => {
       }
     } else {
       if (dataScan) {
+        setReading(false);
         setShowButton(true);
         MySwal.fire({
           icon: "warning",
@@ -91,7 +92,7 @@ const QRScaner = () => {
                   user: profileRedux.id,
                   car: route.car,
                   timing: route.timing,
-                  routePath: profileRedux.routePath,
+                  routePath: route.route,
                 },
                 {
                   headers: {
