@@ -18,7 +18,6 @@ import DriverIndex from "./pages/deriver/DriverIndex";
 import RouteIndex from "./pages/routePath/RouteIndex";
 import PointIndex from "./pages/pickPoint/PointIndex";
 import QRGenaretor from "./pages/QRGenaretor";
-import RegisterEmployeePage from "./pages/RegisterEmployeePage";
 import DepartmentIndex from "./pages/department/DepartmentIndex";
 import ProfileUser from "./pages/ProfileUser";
 import UploadExcel from "./pages/UploadExcel";
@@ -42,12 +41,9 @@ function App() {
                 <Route exact path="/login">
                   <LoginPage />
                 </Route>
-                <Route exact path="/uploadexcel">
+                <AdminRoute exact path="/uploadexcel">
                   <UploadExcel />
-                </Route>
-                {/* <Route exact path="/employee/register">
-                  <RegisterEmployeePage />
-                </Route> */}
+                </AdminRoute>
                 <Route exact path="/register">
                   <RegisterPage />
                 </Route>
