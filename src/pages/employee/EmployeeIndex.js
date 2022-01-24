@@ -53,20 +53,26 @@ const EmployeeIndex = () => {
     }
   };
   const handleRowUpdate = (newData, oldData, resolve) => {
+    console.log(newData);
     api
-      .put(`/${newData._id}`, {
-        name: newData.name,
-        employeeId: newData.employeeId,
-        tel: newData.tel,
-        isUsed: true,
-        department: newData.Department.id,
-        pickupPoint: newData.pickupPoint.id,
-        routeUsed: newData.routePath.id,
-      },{
-        headers: {
-          Authorization: "Bearer " + profileValue.access_token,
+      .put(
+        `/${newData._id}`,
+        {
+          name: newData.name,
+          employeeId: newData.employeeId,
+          tel: newData.tel,
+          isUsed: true,
+          department: newData.Department.id,
+          pickupPoint: newData.pickupPoint.id,
+          routeUsed: newData.routePath.id,
+          extraCondition: newData.extraCondition,
         },
-      })
+        {
+          headers: {
+            Authorization: "Bearer " + profileValue.access_token,
+          },
+        }
+      )
       .then((res) => {
         const dataUpdate = [...employees];
         const index = oldData.tableData.id;
@@ -140,7 +146,7 @@ const EmployeeIndex = () => {
               icons={tableIcons}
               title="Employee Management"
               columns={[
-                { title: "employeeId",editable: "never", field: "employeeId" },
+                { title: "employeeId", editable: "never", field: "employeeId" },
                 { title: "name", field: "name" },
                 { title: "status", field: "isUsed" },
                 {
@@ -159,7 +165,11 @@ const EmployeeIndex = () => {
                   field: "pickupPoint.id",
                 },
                 { title: "tel", field: "tel" },
-                // { title: "TimeStamp", lookup: { 'active': "ใช้งาน", 'inactive': "ปิดใช้งาน" }, field: "user_info", hidden: true },
+                {
+                  title: "Extra Condition",
+                  type: "boolean",
+                  field: "extraCondition",
+                },
               ]}
               data={employees}
               options={{

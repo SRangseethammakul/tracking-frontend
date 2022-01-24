@@ -57,7 +57,9 @@ const HomePage = () => {
     <div>
       <h1 className="text-center mt-3">Welcome</h1>
       <h1 className="text-center mt-3">Reckitt Benckiser</h1>
-      <h2 className="text-center mt-3">{check ? "Bubble and Seal" : "No Bubble and Seal"}</h2>
+      <h2 className="text-center mt-3">
+        {check ? "Bubble and Seal" : "No Bubble and Seal"}
+      </h2>
       <Container className="mt-3">
         <Row>
           <Col xs={12} md={6}>
@@ -81,6 +83,22 @@ const HomePage = () => {
                 <Link to="/profile">
                   <Button variant="outline-success" className="float-right">
                     Profile <BsBoxArrowInRight />
+                  </Button>{" "}
+                </Link>
+              </div>
+            </div>
+          </Col>
+        </Row>
+        <br></br>
+        <Row>
+          <Col xs={12} md={6}>
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">calldriver</h5>
+                <p className="card-text">calldriver</p>
+                <Link to="/calldriver">
+                  <Button variant="outline-success" className="float-right">
+                    calldriver <BsBoxArrowInRight />
                   </Button>{" "}
                 </Link>
               </div>

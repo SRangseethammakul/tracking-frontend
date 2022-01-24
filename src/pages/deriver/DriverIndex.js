@@ -24,6 +24,7 @@ const api = axios.create({
 const CarIndex = () => {
   const [loading, setLoading] = React.useState(false);
   const [drivers, setDriver] = React.useState([]);
+  const [routePaths, setroutePaths] = React.useState({});
   const [error, setError] = React.useState(null);
   const cancelToken = React.useRef(null);
   const profileValue = JSON.parse(localStorage.getItem("token"));
@@ -36,6 +37,8 @@ const CarIndex = () => {
           name: newData.name,
           status: newData.isUsed,
           tel: newData.tel,
+          driverId: newData.driverId,
+          routeUsed: newData.routePath.id,
         },
         {
           headers: {
@@ -94,6 +97,7 @@ const CarIndex = () => {
         cancelToken: cancelToken.current.token,
       });
       setDriver(resp.data.data);
+      setroutePaths(resp.data.routePaths);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -160,6 +164,19 @@ const CarIndex = () => {
               icons={tableIcons}
               title="Driver Management"
               columns={[
+                {
+                  title: "Profile",
+                  field: "driverImage",
+                  sorting: false,
+                  filtering: false,
+                  editable: "never",
+                  render: (rowData) => (
+                    <img
+                      src={rowData.driverImage}
+                      style={{ width: 40, borderRadius: "50%" }}
+                    />
+                  ),
+                },
                 { title: "id", field: "id", editable: "never", hidden: true },
                 { title: "name", field: "name" },
                 {
@@ -168,6 +185,12 @@ const CarIndex = () => {
                   lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
                 },
                 { title: "tel", field: "tel" },
+                { title: "driver id", field: "driverId" },
+                {
+                  title: "เส้นทาง",
+                  lookup: routePaths,
+                  field: "routePath.id",
+                },
               ]}
               data={drivers}
               options={{

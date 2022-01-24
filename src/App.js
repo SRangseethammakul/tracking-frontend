@@ -21,6 +21,7 @@ import QRGenaretor from "./pages/QRGenaretor";
 import DepartmentIndex from "./pages/department/DepartmentIndex";
 import ProfileUser from "./pages/ProfileUser";
 import UploadExcel from "./pages/UploadExcel";
+import CallDriver from "./pages/CallDriver";
 const { store } = configureStore();
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
             <Router>
               <NavBar />
               <Switch>
+              <Route exact path="/calldriver">
+                  <CallDriver />
+                </Route>
                 <Route exact path="/login">
                   <LoginPage />
                 </Route>
