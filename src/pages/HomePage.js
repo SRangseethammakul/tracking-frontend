@@ -104,6 +104,19 @@ const HomePage = () => {
               </div>
             </div>
           </Col>
+          <Col xs={12} md={6}>
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Call List</h5>
+                <p className="card-text">Call List</p>
+                <Link to="/calllist">
+                  <Button variant="outline-success" className="float-right">
+                  Call List <BsBoxArrowInRight />
+                  </Button>{" "}
+                </Link>
+              </div>
+            </div>
+          </Col>
         </Row>
       </Container>
     </div>

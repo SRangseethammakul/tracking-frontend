@@ -22,6 +22,7 @@ import DepartmentIndex from "./pages/department/DepartmentIndex";
 import ProfileUser from "./pages/ProfileUser";
 import UploadExcel from "./pages/UploadExcel";
 import CallDriver from "./pages/CallDriver";
+import CallList from "./pages/CallList";
 const { store } = configureStore();
 function App() {
   return (
@@ -36,8 +37,11 @@ function App() {
             <Router>
               <NavBar />
               <Switch>
-              <Route exact path="/calldriver">
+                <Route exact path="/calldriver">
                   <CallDriver />
+                </Route>
+                <Route exact path="/calllist">
+                  <CallList />
                 </Route>
                 <Route exact path="/login">
                   <LoginPage />
