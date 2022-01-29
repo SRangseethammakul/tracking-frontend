@@ -133,12 +133,12 @@ const CallDriver = () => {
           </Col>
         </Row>
         <Row>
-          <div className="text-center">
+          <div className="text-center mt-5">
             <button
               className="btn btn-outline-success ml-2"
               onClick={() => sendData()}
             >
-              สแกนอีกครั้ง
+              จองรถ
             </button>
           </div>
         </Row>
