@@ -24,7 +24,7 @@ const CallList = () => {
           Authorization: "Bearer " + profileValue.access_token,
         },
       });
-      addToast(message.data.data, { appearance: "success" });
+      addToast(message.data.message, { appearance: "success" });
       history.replace("/");
     } catch (err) {
       setError(err.message);
@@ -102,7 +102,7 @@ const CallList = () => {
                           size="sm"
                           onClick={() => deleteData(data.id)}
                         >
-                            ยกเลิกการจอง
+                          ยกเลิกการจอง
                           <BsTrash></BsTrash>
                         </Button>
                       </td>

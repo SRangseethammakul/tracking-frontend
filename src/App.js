@@ -23,6 +23,7 @@ import ProfileUser from "./pages/ProfileUser";
 import UploadExcel from "./pages/UploadExcel";
 import CallDriver from "./pages/CallDriver";
 import CallList from "./pages/CallList";
+import TransactionCall from "./pages/TransactionCall";
 const { store } = configureStore();
 function App() {
   return (
@@ -82,6 +83,9 @@ function App() {
                 <AdminRoute exact path="/transaction">
                   <TransactionPage />
                 </AdminRoute>
+                <Route exact path="/transactioncall">
+                  <TransactionCall />
+                </Route>
                 <AdminRoute exact path="/department">
                   <DepartmentIndex />
                 </AdminRoute>
