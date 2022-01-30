@@ -172,6 +172,7 @@ const CarIndex = () => {
                   editable: "never",
                   render: (rowData) => (
                     <img
+                      alt="Line user profile"
                       src={rowData.driverImage}
                       style={{ width: 40, borderRadius: "50%" }}
                     />
