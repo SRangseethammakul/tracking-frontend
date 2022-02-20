@@ -35,6 +35,7 @@ const CallDriver = () => {
           showConfirmButton: false,
           timer: 3000,
         });
+        return 0;
       }
       if (!roundUse) {
         MySwal.fire({
@@ -43,7 +44,9 @@ const CallDriver = () => {
           showConfirmButton: false,
           timer: 3000,
         });
+        return 0;
       }
+      let check = document.getElementById("flexCheckIndeterminate").checked;
       setLoading(true);
       const pathURL = `/callDriver`;
       const resp = await api.post(
@@ -51,6 +54,7 @@ const CallDriver = () => {
         {
           round: roundUse,
           routePath: routeUse,
+          checkData: check,
         },
         {
           headers: {
@@ -131,6 +135,22 @@ const CallDriver = () => {
             <label id="route-label">Select Round</label>
             <Select onChange={handleChangeRound} options={rounds} />
           </Col>
+        </Row>
+        <Row className="mt-2">
+          <div>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              defaultValue
+              id="flexCheckIndeterminate"
+            />
+            <label
+              className="form-check-label px-2"
+              htmlFor="flexCheckIndeterminate"
+            >
+              {' '} ต้องการความช่วยเหลือพิเศษ
+            </label>
+          </div>
         </Row>
         <Row>
           <div className="text-center mt-5">

@@ -54,6 +54,13 @@ const NavBar = () => {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     onClick={() => {
+                      history.replace("/transactioncall");
+                    }}
+                  >
+                    Transaction จองรถ
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
                       history.replace("/employee");
                     }}
                   >
@@ -71,7 +78,7 @@ const NavBar = () => {
                       history.replace("/uploadexcel");
                     }}
                   >
-                    Upload Excel 
+                    Upload Excel
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : null}
