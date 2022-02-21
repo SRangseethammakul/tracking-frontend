@@ -65,8 +65,7 @@ const CallDriver = () => {
       MySwal.fire({
         icon: "success",
         title: resp.data.message,
-        showConfirmButton: false,
-        timer: 3000,
+        showConfirmButton: true,
       });
       history.replace("/");
     } catch (err) {
@@ -148,7 +147,8 @@ const CallDriver = () => {
               className="form-check-label px-2"
               htmlFor="flexCheckIndeterminate"
             >
-              {' '} ต้องการความช่วยเหลือพิเศษ
+              {" "}
+              ต้องการความช่วยเหลือพิเศษ
             </label>
           </div>
         </Row>

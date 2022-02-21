@@ -24,6 +24,8 @@ import UploadExcel from "./pages/UploadExcel";
 import CallDriver from "./pages/CallDriver";
 import CallList from "./pages/CallList";
 import TransactionCall from "./pages/TransactionCall";
+import RoundPage from "./pages/roundPage/RoundPage";
+import ConfigPage from "./pages/asConfig/ConfigPage";
 const { store } = configureStore();
 function App() {
   return (
@@ -70,6 +72,12 @@ function App() {
                 </AdminRoute>
                 <AdminRoute exact path="/pickup">
                   <PointIndex />
+                </AdminRoute>
+                <AdminRoute exact path="/round">
+                  <RoundPage />
+                </AdminRoute>
+                <AdminRoute exact path="/config">
+                  <ConfigPage />
                 </AdminRoute>
                 <PrivateRoute exact path="/scan">
                   <QRScaner />

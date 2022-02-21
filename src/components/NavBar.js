@@ -61,6 +61,20 @@ const NavBar = () => {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     onClick={() => {
+                      history.replace("/config");
+                    }}
+                  >
+                    Config Setting
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
+                      history.replace("/round");
+                    }}
+                  >
+                    Round Setting
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => {
                       history.replace("/employee");
                     }}
                   >
