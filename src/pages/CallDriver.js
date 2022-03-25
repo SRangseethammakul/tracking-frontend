@@ -17,7 +17,9 @@ const CallDriver = () => {
   const [rounds, setRound] = React.useState([]);
   const [routeUse, setRouteUse] = React.useState(null);
   const [roundUse, setRoundUse] = React.useState(null);
+  const [pickupUse, setPickupUse] = React.useState(null);
   const [routePaths, setPath] = React.useState([]);
+  const [pickups, setPickup] = React.useState([]);
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const history = useHistory();
   const handleChangePath = async (selectedOption) => {
@@ -25,6 +27,9 @@ const CallDriver = () => {
   };
   const handleChangeRound = async (selectedOption) => {
     setRoundUse(selectedOption.value);
+  };
+  const handleChangePickup = async (selectedOption) => {
+    setPickupUse(selectedOption.value);
   };
   const sendData = async () => {
     try {
@@ -46,6 +51,15 @@ const CallDriver = () => {
         });
         return 0;
       }
+      if (!pickupUse) {
+        MySwal.fire({
+          icon: "error",
+          title: "กรุณาเลือก จุดรับส่ง ของคุณ",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        return 0;
+      }
       let check = document.getElementById("flexCheckIndeterminate").checked;
       setLoading(true);
       const pathURL = `/callDriver`;
@@ -54,6 +68,7 @@ const CallDriver = () => {
         {
           round: roundUse,
           routePath: routeUse,
+          pickupUse: pickupUse,
           checkData: check,
         },
         {
@@ -91,6 +106,7 @@ const CallDriver = () => {
       });
       setRound(resp.data.rounds);
       setPath(resp.data.routePaths);
+      setPickup(resp.data.pickupPoints);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -133,6 +149,12 @@ const CallDriver = () => {
           <Col>
             <label id="route-label">Select Round</label>
             <Select onChange={handleChangeRound} options={rounds} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <label id="route-label">Select Pickup Point</label>
+            <Select onChange={handleChangePickup} options={pickups} />
           </Col>
         </Row>
         <Row className="mt-2">

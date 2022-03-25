@@ -18,7 +18,6 @@ const api = axios.create({
 const schema = yup.object().shape({
   name: yup.string().required("name not empty"),
   employeeID: yup.string().required("employeeID not empty"),
-  email: yup.string().required("email not empty").email("invalid format"),
   tel: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
@@ -76,7 +75,6 @@ const RegisterEmployeePage = () => {
         const pathURL = `/users/register`;
         const resp = await api.post(pathURL, {
           name: data.name,
-          email: data.email,
           tel: data.tel,
           password: data.password,
           department: departmentUse,
@@ -91,7 +89,7 @@ const RegisterEmployeePage = () => {
           timer: 3000,
         });
         addToast(resp.data.message, { appearance: "success" });
-        history.replace("/login");
+        history.replace("/employee");
       }
     } catch (err) {
       MySwal.fire({
@@ -178,30 +176,7 @@ const RegisterEmployeePage = () => {
               </>
             )}
 
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input
-              name="email"
-              type="email"
-              id="email"
-              aria-describedby="validationServerUsernameFeedback"
-              className={`form-control mb-1 ${
-                errors.email ? "is-invalid" : ""
-              }`}
-              placeholder="name@example.com"
-              {...register("email")}
-            />
-            {errors.email && (
-              <>
-                <div
-                  id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
-                >
-                  {errors.email.message}
-                </div>
-              </>
-            )}
+
             <label htmlFor="password" className="form-label">
               Password
             </label>

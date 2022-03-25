@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Spinner, Button } from "react-bootstrap";
 import axios from "axios";
+import { BsClockHistory } from "react-icons/bs";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -19,11 +20,13 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { useToasts } from "react-toast-notifications";
 import { BASE_URL } from "../../config/index";
+import { useHistory } from "react-router-dom";
 const api = axios.create({
   baseURL: `${BASE_URL}/userControl`,
 });
 const EmployeeIndex = () => {
   const { addToast } = useToasts();
+  const history = useHistory();
   const [loading, setLoading] = React.useState(false);
   const [employees, setEmployee] = React.useState([]);
   const [error, setError] = React.useState(null);
@@ -32,6 +35,9 @@ const EmployeeIndex = () => {
   const [pickups, setPickups] = React.useState({});
   const cancelToken = React.useRef(null);
   const profileValue = JSON.parse(localStorage.getItem("token"));
+  const getTransactionByUser = (id) => {
+    history.replace(`/usertransaction/${id}`);
+  };
   const getData = async () => {
     try {
       setLoading(true);
@@ -142,6 +148,18 @@ const EmployeeIndex = () => {
       <Container className="mt-3">
         <Row>
           <Col>
+            <Button
+              variant="outline-success"
+              onClick={() => {
+                history.replace("/registerem");
+              }}
+            >
+              Add User
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <MaterialTable
               icons={tableIcons}
               title="Employee Management"
@@ -169,6 +187,20 @@ const EmployeeIndex = () => {
                   title: "Extra Condition",
                   type: "boolean",
                   field: "extraCondition",
+                },
+                {
+                  title: "Tools",
+                  field: "_id",
+                  render: (rowData) =>
+                    rowData && (
+                      <Button
+                        onClick={() => {
+                          getTransactionByUser(rowData._id);
+                        }}
+                      >
+                        <BsClockHistory />
+                      </Button>
+                    ),
                 },
               ]}
               data={employees}

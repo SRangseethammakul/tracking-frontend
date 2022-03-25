@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import QRScaner from "./pages/QRScaner";
 import RegisterPage from "./pages/RegisterPage";
+import RegisterEmployeePage from "./pages/RegisterEmployeePage";
 import UserStoreProvider from "./context/UserContext";
 import { Provider } from "react-redux";
 import configureStore from "./redux/configureStore";
@@ -26,6 +27,7 @@ import CallList from "./pages/CallList";
 import TransactionCall from "./pages/TransactionCall";
 import RoundPage from "./pages/roundPage/RoundPage";
 import ConfigPage from "./pages/asConfig/ConfigPage";
+import UserTransaction from "./pages/employee/UserTransaction";
 const { store } = configureStore();
 function App() {
   return (
@@ -55,8 +57,14 @@ function App() {
                 <AdminRoute exact path="/uploadexcel">
                   <UploadExcel />
                 </AdminRoute>
+                <AdminRoute exact path="/usertransaction/:id">
+                  <UserTransaction />
+                </AdminRoute>
                 <Route exact path="/register">
                   <RegisterPage />
+                </Route>
+                <Route exact path="/registerem">
+                  <RegisterEmployeePage />
                 </Route>
                 <AdminRoute exact path="/employee">
                   <EmployeeIndex />
