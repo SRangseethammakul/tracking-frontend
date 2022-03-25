@@ -59,7 +59,6 @@ const EmployeeIndex = () => {
     }
   };
   const handleRowUpdate = (newData, oldData, resolve) => {
-    console.log(newData);
     api
       .put(
         `/${newData._id}`,
@@ -67,7 +66,7 @@ const EmployeeIndex = () => {
           name: newData.name,
           employeeId: newData.employeeId,
           tel: newData.tel,
-          isUsed: true,
+          isUsed: newData.isUsed,
           department: newData.Department.id,
           pickupPoint: newData.pickupPoint.id,
           routeUsed: newData.routePath.id,
@@ -166,7 +165,7 @@ const EmployeeIndex = () => {
               columns={[
                 { title: "employeeId", editable: "never", field: "employeeId" },
                 { title: "name", field: "name" },
-                { title: "status", field: "isUsed" },
+                { title: "status", type: "boolean", field: "isUsed" },
                 {
                   title: "Department",
                   lookup: departments,
