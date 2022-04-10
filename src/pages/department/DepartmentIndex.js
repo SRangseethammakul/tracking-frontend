@@ -155,8 +155,9 @@ const DepartmentIndex = () => {
               icons={tableIcons}
               title="Car Management"
               columns={[
-                { title: "id", field: "_id", editable: "never", hidden: true },
+                { title: "id", field: "id", editable: "never", hidden: true },
                 { title: "Department Name", field: "name" },
+                { title: "Status", field: "isUsed", type: "boolean" },
               ]}
               data={departments}
               options={{

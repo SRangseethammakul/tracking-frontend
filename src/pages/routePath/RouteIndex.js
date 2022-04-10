@@ -72,10 +72,7 @@ const RouteIndex = () => {
       .catch((err) => {
         setError(err.message);
         if (err.response) {
-          console.log(err.response.data);
           setError(err.response.data.message);
-          console.log(err.response.status);
-          console.log(err.response.headers);
         } else if (err.request) {
           console.log(err.request);
           setError(err.request);
@@ -168,7 +165,7 @@ const RouteIndex = () => {
                 { title: "name", field: "name" },
                 {
                   title: "status",
-                  lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
+                  type: "boolean",
                   field: "isUsed",
                 },
                 // { title: "TimeStamp", field: "user_info", hidden: true },

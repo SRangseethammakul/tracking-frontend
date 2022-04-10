@@ -40,7 +40,6 @@ const PointIndex = () => {
         cancelToken: cancelToken.current.token,
       });
       setPickup(resp.data.data);
-      console.log(resp.data.data);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -156,7 +155,7 @@ const PointIndex = () => {
                 { title: "name", field: "name" },
                 {
                   title: "status",
-                  lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
+                  type: "boolean",
                   field: "isUsed",
                 },
               ]}

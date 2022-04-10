@@ -164,7 +164,7 @@ const CarIndex = () => {
                 {
                   title: "isUsed",
                   field: "isUsed",
-                  lookup: { true: "ใช้งาน", false: "ปิดใช้งาน" },
+                  type: "boolean",
                 },
                 { title: "driver", lookup: drivers, field: "driver" },
               ]}
