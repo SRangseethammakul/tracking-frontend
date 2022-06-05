@@ -153,7 +153,7 @@ const DepartmentIndex = () => {
           <Col>
             <MaterialTable
               icons={tableIcons}
-              title="Car Management"
+              title="Department Management"
               columns={[
                 { title: "id", field: "id", editable: "never", hidden: true },
                 { title: "Department Name", field: "name" },
