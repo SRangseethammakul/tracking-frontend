@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Form, Container, Col, Button } from "react-bootstrap";
+import { Form, Container, Row, Col, Button } from "react-bootstrap";
 import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { BASE_URL } from "../../config/index";
@@ -36,26 +36,41 @@ const ChangePassword = () => {
   return (
     <>
       <Container className="mt-3">
-        <Col md={{ span: 6, offset: 3 }} xs={12}>
-          <h1 className="display-5 text-center">Change New Password</h1>
-          <Form.Label column sm="2">
-            Password
-          </Form.Label>
-          <Form.Control
-            type="password"
-            id="newPassword"
-            placeholder="Password"
-          />
-          <Button
-            className="mt-3"
-            variant="outline-success"
-            onClick={() => {
-              onSubmit();
-            }}
-          >
-            Update Password
-          </Button>
-        </Col>
+        <Row>
+          <Col>
+            <Button
+              onClick={() => {
+                history.replace("/employee");
+              }}
+            >
+              Back To Employee Management
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+      <Container className="mt-3">
+        <Row>
+          <Col md={{ span: 6, offset: 3 }} xs={12}>
+            <h1 className="display-5 text-center">Change New Password</h1>
+            <Form.Label column sm="2">
+              Password
+            </Form.Label>
+            <Form.Control
+              type="password"
+              id="newPassword"
+              placeholder="Password"
+            />
+            <Button
+              className="mt-3"
+              variant="outline-success"
+              onClick={() => {
+                onSubmit();
+              }}
+            >
+              Update Password
+            </Button>
+          </Col>
+        </Row>
       </Container>
     </>
   );

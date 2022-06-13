@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { Container, Row, Col, Spinner, Button } from "react-bootstrap";
 import axios from "axios";
-import { BsClockHistory, BsTools } from "react-icons/bs";
+import { BsClockHistory, BsTools, BsTrashFill } from "react-icons/bs";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -55,6 +55,22 @@ const EmployeeIndex = () => {
       setDepartments(resp.data.departments);
       setroutePaths(resp.data.routePaths);
       setPickups(resp.data.pickups);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const deleteUser = async (id) => {
+    try {
+      const urlPath = `/${id}`;
+      const resp = await api.delete(urlPath, {
+        headers: {
+          Authorization: "Bearer " + profileValue.access_token,
+        },
+      });
+      addToast(resp.data.message, { appearance: "success" });
+      getData();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -197,18 +213,28 @@ const EmployeeIndex = () => {
                     rowData && (
                       <>
                         <Button
+                          variant="info"
                           onClick={() => {
                             getTransactionByUser(rowData._id);
                           }}
                         >
-                          <BsClockHistory />
+                          <BsClockHistory color="white" />
                         </Button>{" "}
                         <Button
+                          variant="warning"
                           onClick={() => {
                             goToChangePassword(rowData._id);
                           }}
                         >
-                          <BsTools background="#983B59" />
+                          <BsTools color="white" />
+                        </Button>{" "}
+                        <Button
+                          variant="danger"
+                          onClick={() => {
+                            deleteUser(rowData._id);
+                          }}
+                        >
+                          <BsTrashFill />
                         </Button>
                       </>
                     ),
