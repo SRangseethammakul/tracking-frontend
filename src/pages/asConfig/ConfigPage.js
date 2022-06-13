@@ -150,7 +150,7 @@ const ConfigPage = () => {
           <Col>
             <MaterialTable
               icons={tableIcons}
-              title="Round Management"
+              title="Config Management"
               columns={[
                 { title: "name", field: "name" },
                 { title: "check", type: "boolean", field: "check" },

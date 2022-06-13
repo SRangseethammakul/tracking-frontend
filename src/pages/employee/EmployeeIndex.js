@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { Container, Row, Col, Spinner, Button } from "react-bootstrap";
 import axios from "axios";
-import { BsClockHistory } from "react-icons/bs";
+import { BsClockHistory, BsTools } from "react-icons/bs";
 import MaterialTable from "material-table";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -37,6 +37,9 @@ const EmployeeIndex = () => {
   const profileValue = JSON.parse(localStorage.getItem("token"));
   const getTransactionByUser = (id) => {
     history.replace(`/usertransaction/${id}`);
+  };
+  const goToChangePassword = (id) => {
+    history.replace(`/changepassword/${id}`);
   };
   const getData = async () => {
     try {
@@ -192,13 +195,22 @@ const EmployeeIndex = () => {
                   field: "_id",
                   render: (rowData) =>
                     rowData && (
-                      <Button
-                        onClick={() => {
-                          getTransactionByUser(rowData._id);
-                        }}
-                      >
-                        <BsClockHistory />
-                      </Button>
+                      <>
+                        <Button
+                          onClick={() => {
+                            getTransactionByUser(rowData._id);
+                          }}
+                        >
+                          <BsClockHistory />
+                        </Button>{" "}
+                        <Button
+                          onClick={() => {
+                            goToChangePassword(rowData._id);
+                          }}
+                        >
+                          <BsTools background="#983B59" />
+                        </Button>
+                      </>
                     ),
                 },
               ]}

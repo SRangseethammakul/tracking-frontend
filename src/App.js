@@ -28,6 +28,7 @@ import TransactionCall from "./pages/TransactionCall";
 import RoundPage from "./pages/roundPage/RoundPage";
 import ConfigPage from "./pages/asConfig/ConfigPage";
 import UserTransaction from "./pages/employee/UserTransaction";
+import ChangePassword from "./pages/employee/ChangPassword";
 const { store } = configureStore();
 function App() {
   return (
@@ -59,6 +60,9 @@ function App() {
                 </AdminRoute>
                 <AdminRoute exact path="/usertransaction/:id">
                   <UserTransaction />
+                </AdminRoute>
+                <AdminRoute exact path="/changepassword/:id">
+                  <ChangePassword />
                 </AdminRoute>
                 <Route exact path="/register">
                   <RegisterPage />
