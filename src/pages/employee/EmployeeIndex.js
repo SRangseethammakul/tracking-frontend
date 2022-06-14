@@ -17,6 +17,8 @@ import LastPage from "@material-ui/icons/LastPage";
 import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { useToasts } from "react-toast-notifications";
 import { BASE_URL } from "../../config/index";
@@ -25,6 +27,7 @@ const api = axios.create({
   baseURL: `${BASE_URL}/userControl`,
 });
 const EmployeeIndex = () => {
+  const MySwal = withReactContent(Swal);
   const { addToast } = useToasts();
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
@@ -63,14 +66,32 @@ const EmployeeIndex = () => {
   };
   const deleteUser = async (id) => {
     try {
-      const urlPath = `/${id}`;
-      const resp = await api.delete(urlPath, {
-        headers: {
-          Authorization: "Bearer " + profileValue.access_token,
-        },
+      MySwal.fire({
+        icon: "warning",
+        title: "ยืนยันการลบ",
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        focusCancel: "true",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const urlPath = `/${id}`;
+            const resp = await api.delete(urlPath, {
+              headers: {
+                Authorization: "Bearer " + profileValue.access_token,
+              },
+            });
+            addToast(resp.data.message, { appearance: "success" });
+            getData();
+          } catch (err) {
+            addToast(err.response.data.error.message, {
+              appearance: "error",
+            });
+          }
+        }
       });
-      addToast(resp.data.message, { appearance: "success" });
-      getData();
     } catch (err) {
       setError(err.message);
     } finally {
