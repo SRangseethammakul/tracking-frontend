@@ -59,6 +59,9 @@ const EmployeeIndex = () => {
       setroutePaths(resp.data.routePaths);
       setPickups(resp.data.pickups);
     } catch (err) {
+      if (err.response?.status === 401) {
+        history.replace("/login");
+      }
       setError(err.message);
     } finally {
       setLoading(false);

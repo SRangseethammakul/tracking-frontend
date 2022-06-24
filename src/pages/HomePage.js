@@ -2,12 +2,15 @@ import React from "react";
 import axios from "axios";
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import { BsBoxArrowInRight } from "react-icons/bs";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../config/index";
+
 const api = axios.create({
   baseURL: `${BASE_URL}`,
 });
 const HomePage = () => {
+  const history = useHistory();
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
@@ -25,6 +28,9 @@ const HomePage = () => {
       });
       setCheck(resp.data.check);
     } catch (err) {
+      if (err.response?.status === 401) {
+        history.replace("/login");
+      }
       setError(err.message);
     } finally {
       setLoading(false);
@@ -111,7 +117,7 @@ const HomePage = () => {
                 <p className="card-text">Call List</p>
                 <Link to="/calllist">
                   <Button variant="outline-success" className="float-right">
-                  Call List <BsBoxArrowInRight />
+                    Call List <BsBoxArrowInRight />
                   </Button>{" "}
                 </Link>
               </div>

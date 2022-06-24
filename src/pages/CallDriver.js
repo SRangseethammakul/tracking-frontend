@@ -119,6 +119,9 @@ const CallDriver = () => {
       const index = await getIndex(resp.data.routePaths, routePassFromQueue);
       setRoutePass(index);
     } catch (err) {
+      if (err.response?.status === 401) {
+        history.replace("/login");
+      }
       setError(err.message);
     } finally {
       setLoading(false);

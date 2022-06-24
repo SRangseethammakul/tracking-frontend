@@ -4,7 +4,6 @@ import { BsTrash } from "react-icons/bs";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { BASE_URL } from "../config/index";
-
 const api = axios.create({
   baseURL: `${BASE_URL}`,
 });
@@ -36,6 +35,9 @@ const CallListWithQueue = () => {
       });
       setData(resp.data.array);
     } catch (err) {
+      if (err.response?.status === 401) {
+        history.replace("/login");
+      }
       setError(err.message);
     } finally {
       setLoading(false);
