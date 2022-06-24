@@ -29,6 +29,7 @@ import RoundPage from "./pages/roundPage/RoundPage";
 import ConfigPage from "./pages/asConfig/ConfigPage";
 import UserTransaction from "./pages/employee/UserTransaction";
 import ChangePassword from "./pages/employee/ChangPassword";
+import CallListWithQueue from "./pages/CallListWithQueue";
 const { store } = configureStore();
 function App() {
   return (
@@ -43,12 +44,15 @@ function App() {
             <Router>
               <NavBar />
               <Switch>
-                <Route exact path="/calldriver">
+                <PrivateRoute exact path="/calldriver">
                   <CallDriver />
-                </Route>
-                <Route exact path="/calllist">
+                </PrivateRoute>
+                <PrivateRoute exact path="/calllist">
                   <CallList />
-                </Route>
+                </PrivateRoute>
+                <PrivateRoute exact path="/call-list-with-queue">
+                  <CallListWithQueue />
+                </PrivateRoute>
                 <Route exact path="/login">
                   <LoginPage />
                 </Route>
@@ -103,9 +107,9 @@ function App() {
                 <AdminRoute exact path="/transaction">
                   <TransactionPage />
                 </AdminRoute>
-                <Route exact path="/transactioncall">
+                <AdminRoute exact path="/transactioncall">
                   <TransactionCall />
-                </Route>
+                </AdminRoute>
                 <AdminRoute exact path="/department">
                   <DepartmentIndex />
                 </AdminRoute>

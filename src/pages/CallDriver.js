@@ -2,14 +2,18 @@ import React from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import axios from "axios";
 import Select from "react-select";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { BASE_URL } from "../config/index";
 const api = axios.create({
   baseURL: `${BASE_URL}`,
 });
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 const CallDriver = () => {
+  const query = useQuery();
   const MySwal = withReactContent(Swal);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -18,6 +22,7 @@ const CallDriver = () => {
   const [routeUse, setRouteUse] = React.useState(null);
   const [roundUse, setRoundUse] = React.useState(null);
   const [pickupUse, setPickupUse] = React.useState(null);
+  const [routePass, setRoutePass] = React.useState(null);
   const [routePaths, setPath] = React.useState([]);
   const [pickups, setPickup] = React.useState([]);
   const profileValue = JSON.parse(localStorage.getItem("token"));
@@ -94,8 +99,12 @@ const CallDriver = () => {
       history.replace("/");
     }
   };
+  const getIndex = (array, key) => {
+    return array.findIndex((o) => o.value === key);
+  };
   const getData = async () => {
     try {
+      const routePassFromQueue = query.get("route") || null;
       setLoading(true);
       const urlPath = `/information/calldriver`;
       const resp = await api.get(urlPath, {
@@ -107,6 +116,8 @@ const CallDriver = () => {
       setRound(resp.data.rounds);
       setPath(resp.data.routePaths);
       setPickup(resp.data.pickupPoints);
+      const index = await getIndex(resp.data.routePaths, routePassFromQueue);
+      setRoutePass(index);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -142,7 +153,11 @@ const CallDriver = () => {
         <Row>
           <Col>
             <label id="route-label">Select routePaths</label>
-            <Select onChange={handleChangePath} options={routePaths} />
+            <Select
+              onChange={handleChangePath}
+              options={routePaths}
+              defaultValue={routePaths[routePass]}
+            />
           </Col>
         </Row>
         <Row>
