@@ -124,6 +124,22 @@ const HomePage = () => {
             </div>
           </Col>
         </Row>
+        <br></br>
+        <Row>
+          <Col xs={12} md={6}>
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Queue</h5>
+                <p className="card-text">ตรวจสอบการจองในแต่ละสาย</p>
+                <Link to="/call-list-with-queue">
+                  <Button variant="outline-success" className="float-right">
+                    Queue <BsBoxArrowInRight />
+                  </Button>{" "}
+                </Link>
+              </div>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </div>
   );

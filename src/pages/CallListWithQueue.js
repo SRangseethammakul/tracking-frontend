@@ -1,6 +1,6 @@
 import React from "react";
 import { Spinner, Table, Button } from "react-bootstrap";
-import { BsTrash } from "react-icons/bs";
+import { BsBoxArrowInUp } from "react-icons/bs";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { BASE_URL } from "../config/index";
@@ -96,8 +96,7 @@ const CallListWithQueue = () => {
                           size="sm"
                           onClick={() => deleteData(data.routePathId)}
                         >
-                          จองคิวรถ
-                          <BsTrash></BsTrash>
+                          จองคิวรถ <BsBoxArrowInUp></BsBoxArrowInUp>
                         </Button>
                       </td>
                     </tr>
